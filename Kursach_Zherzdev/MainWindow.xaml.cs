@@ -31,8 +31,6 @@ namespace Kursach_Zherzdev
         public MainWindow()
         {
             InitializeComponent();
-
-
         }
 
         private void FileChoose(object sender, RoutedEventArgs e)
@@ -49,67 +47,17 @@ namespace Kursach_Zherzdev
 
             }
 
-
         }
 
 
         public void CryptInput(object sender, RoutedEventArgs e)
         {
-            string inputT = InputTextBox.Text;
-            string result = "";
-            int kwIndex = 0;
-
-            foreach (char symbol in inputT)
-            {
-                if (!alphabet.Contains(symbol))
-                {
-                    result += symbol;
-                }
-                else
-                {
-                    int cryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symbol) +
-                        Array.IndexOf(alphabet.ToArray(), keyWord[kwIndex])) % alphabet.Length;
-                    result += alphabet[cryptCharIndex];
-
-                    kwIndex++;
-                    if (kwIndex == keyWord.Length)
-                    {
-                        kwIndex = 0;
-                    }
-                }
-            }
-            OutputTextBox.Text = result;
-
-
-
+            CryptMethod(InputTextBox.Text, keyWord,true);
         }
 
         private void DecryptInfo(object sender, RoutedEventArgs e)
         {
-
-            string inputT = InputTextBox.Text;
-            string result = "";
-            int kwIndex = 0;
-            foreach (char symbol in inputT)
-            {
-                if (!alphabet.Contains(symbol))
-                {
-                    result += symbol;
-                }
-                else
-                {
-                    int deCryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symbol) + alphabet.Length - Array.IndexOf(alphabet.ToArray(), keyWord[kwIndex])) % alphabet.Length;
-                    result += alphabet[deCryptCharIndex];
-                    kwIndex++;
-                    if (kwIndex == keyWord.Length)
-                    {
-                        kwIndex = 0;
-                    }
-                }
-            }
-            OutputTextBox.Text = result;
-
-
+            CryptMethod(InputTextBox.Text, keyWord, false);
         }
 
         private void SaveFileButton(object sender, RoutedEventArgs e)
@@ -176,57 +124,49 @@ namespace Kursach_Zherzdev
             }
         }
         // SUPERTESTS HERE
-        public string DecryptMethod(string inputT)
+    
+        public string CryptMethod(string inputT, string keyWord, bool flag)
         {
             string result = "";
             int kwIndex = 0;
-            keyWord = "скорпион";
 
 
             foreach (char symbol in inputT)
             {
-                if (!alphabet.Contains(symbol))
+                int cryptCharIndex=0;
+                if (alphabet.Contains(symbol) || alphabet.Contains(symbol.ToString().ToLower()))
                 {
-                    result += symbol;
-                }
-                else
-                {
-                    int deCryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symbol) + alphabet.Length - Array.IndexOf(alphabet.ToArray(), keyWord[kwIndex])) % alphabet.Length;
-                    result += alphabet[deCryptCharIndex];
-                    kwIndex++;
-                    if (kwIndex == keyWord.Length)
+                    char symb1;
+                    symb1 = Convert.ToChar(symbol.ToString().ToLower());
+                    
+                    if (flag)
                     {
-                        kwIndex = 0;
-                    }
-                }
-            }
-            OutputTextBox.Text = result;
-            return result;
-        
-    }
-        public string CryptMethod(string inputT)
-        {
-            string result = "";
-            int kwIndex = 0;
-            keyWord = "скорпион";
-
-
-            foreach (char symbol in inputT)
-            {
-                if (!alphabet.Contains(symbol))
-                {
-                    result += symbol;
-                }
-                else
-                {
-                    int cryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symbol) +
+                        cryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symb1) +
                         Array.IndexOf(alphabet.ToArray(), keyWord[kwIndex])) % alphabet.Length;
-                    result += alphabet[cryptCharIndex];
+                    }
+                    else
+                    {
+                        cryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symb1) + alphabet.Length
+                            - Array.IndexOf(alphabet.ToArray(), keyWord[kwIndex])) % alphabet.Length;
+
+                    }
                     kwIndex++;
                     if (kwIndex == keyWord.Length)
                     {
                         kwIndex = 0;
                     }
+                    if (!alphabet.Contains(symbol))
+                    {
+                    result += alphabet[cryptCharIndex].ToString().ToUpper();
+                    }
+                    else
+                    {
+                        result += alphabet[cryptCharIndex];
+                    }
+                }
+                else
+                {
+                    result += symbol;
                 }
             }
             OutputTextBox.Text = result;
