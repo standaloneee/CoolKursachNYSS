@@ -11,7 +11,7 @@
             <ColumnDefinition Width="307*"/>
             <ColumnDefinition Width="143*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="InputTextBox" TextWrapping="Wrap" Margin="22,56,45,357" Grid.ColumnSpan="2" TextChanged="InputText_Changed"/>
+        <TextBox Name="InputTextBox" TextWrapping="Wrap" Margin="22,56,45,357" Grid.ColumnSpan="2"/>
         <Button Content="Выберите файл" HorizontalAlignment="Left" Height="33" Margin="75,217,0,0" VerticalAlignment="Top" Width="154" Click="FileChoose" Grid.Column="1"/>
         <Label Content="Исходный текст:" HorizontalAlignment="Left" Margin="22,25,0,0" VerticalAlignment="Top"/>
         <Button Name="DecryptButton" Content="Расшифровать" HorizontalAlignment="Left" Height="33" Margin="514,217,0,0" VerticalAlignment="Top" Width="154" Click="DecryptInfo" Grid.ColumnSpan="2" IsEnabled="False" />
@@ -19,7 +19,7 @@
         <TextBox Name="KeyInputTextBox" Text="" HorizontalAlignment="Left" Height="33" Margin="22,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="InputCypherTextStarted"/>
         <Label Content="Ключ:" HorizontalAlignment="Left" Margin="22,191,0,0" VerticalAlignment="Top"/>
         <Button Name="CypherApplyButton" Content="✓" HorizontalAlignment="Left" Height="33" Margin="206,217,0,0" VerticalAlignment="Top" Width="47" FontSize="24" Foreground="#FF13960F" IsEnabled="False" Click="CypherApplyButton_Click"/>
-        <TextBox Name="OutputTextBox" TextWrapping="Wrap" Margin="22,284,45,91" Grid.ColumnSpan="2"/>
+        <TextBox Name="OutputTextBox" TextWrapping="Wrap" Margin="22,284,45,91" Grid.ColumnSpan="2" IsEnabled="False"/>
         <Label Content="Результат:" HorizontalAlignment="Left" Margin="22,255,0,0" VerticalAlignment="Top"/>
         <Button Content="Сохранить файл" HorizontalAlignment="Left" Height="33" Margin="87,446,0,0" VerticalAlignment="Top" Width="154" Grid.Column="1" Click="SaveFileButton"/>
 
