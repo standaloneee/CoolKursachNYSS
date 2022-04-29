@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Kursach_Zherzdev
 {
     /// <summary>
@@ -52,7 +53,7 @@ namespace Kursach_Zherzdev
 
         public void CryptInput(object sender, RoutedEventArgs e)
         {
-            CryptMethod(InputTextBox.Text, keyWord,true);
+            CryptMethod(InputTextBox.Text, keyWord, true);
         }
 
         private void DecryptInfo(object sender, RoutedEventArgs e)
@@ -89,25 +90,36 @@ namespace Kursach_Zherzdev
 
         private void CypherApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!Regex.IsMatch(KeyInputTextBox.Text, @"\P{IsCyrillic}"))
+            if (InputTextBox.Text.Length == 0)
             {
-                MessageBox.Show("Шифр успешно применен!");
-                cypherWordApplied = true;
-                if (InputTextBox.Text.Length != 0)
-                {
-                    CryptButton.IsEnabled = true;
-                    DecryptButton.IsEnabled = true;
-                    keyWord = KeyInputTextBox.Text;
-                }
-
+                MessageBox.Show("Сначала введите текст который хотите зашифровать!");
             }
             else
             {
-                MessageBox.Show("Ключ должнен содержать только кириллицу!");
-                cypherWordApplied = false;
-                CryptButton.IsEnabled = false;
-                DecryptButton.IsEnabled = false;
+                if (!Regex.IsMatch(KeyInputTextBox.Text, @"\P{IsCyrillic}"))
+                {
+                    MessageBox.Show("Шифр успешно применен!");
+                    cypherWordApplied = true;
+                    if (InputTextBox.Text.Length != 0)
+                    {
+                        CryptButton.IsEnabled = true;
+                        DecryptButton.IsEnabled = true;
+                        keyWord = KeyInputTextBox.Text;
+                        CurrentKey.Text = keyWord;
+
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Ключ должнен содержать только кириллицу!");
+                    cypherWordApplied = false;
+                    CryptButton.IsEnabled = false;
+                    DecryptButton.IsEnabled = false;
+                }
             }
+
+            
         }
 
         private void InputText_Changed(object sender, TextChangedEventArgs e)
@@ -124,7 +136,7 @@ namespace Kursach_Zherzdev
             }
         }
         // SUPERTESTS HERE
-    
+
         public string CryptMethod(string inputT, string keyWord, bool flag)
         {
             string result = "";
@@ -133,12 +145,12 @@ namespace Kursach_Zherzdev
 
             foreach (char symbol in inputT)
             {
-                int cryptCharIndex=0;
+                int cryptCharIndex = 0;
                 if (alphabet.Contains(symbol) || alphabet.Contains(symbol.ToString().ToLower()))
                 {
                     char symb1;
                     symb1 = Convert.ToChar(symbol.ToString().ToLower());
-                    
+
                     if (flag)
                     {
                         cryptCharIndex = (Array.IndexOf(alphabet.ToArray(), symb1) +
@@ -157,7 +169,7 @@ namespace Kursach_Zherzdev
                     }
                     if (!alphabet.Contains(symbol))
                     {
-                    result += alphabet[cryptCharIndex].ToString().ToUpper();
+                        result += alphabet[cryptCharIndex].ToString().ToUpper();
                     }
                     else
                     {
@@ -171,7 +183,7 @@ namespace Kursach_Zherzdev
             }
             OutputTextBox.Text = result;
             return result;
-        
-    }
+
+        }
     }
 }
